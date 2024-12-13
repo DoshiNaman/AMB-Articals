@@ -6,7 +6,7 @@ export function middleware(req: NextRequest) {
 
   const isAuthenticatedState = req.cookies.get("auth-storage");
 
-  console.log("Authentication state:", isAuthenticatedState); // Added logging
+  // console.log("Authentication state:", isAuthenticatedState); // Added logging
 
   let isAuthenticated = false;
   if (isAuthenticatedState != undefined) {
@@ -16,10 +16,13 @@ export function middleware(req: NextRequest) {
   // Check the current URL to prevent redirect loops
   const currentUrl = req.nextUrl.pathname;
 
+  console.log("currentUrl", currentUrl);
+
   // Bypass middleware for static assets
   if (
     currentUrl.startsWith("/_next/") ||
     currentUrl.startsWith("/api/") ||
+    currentUrl.startsWith("/AMB-Logo.png.webp") ||
     currentUrl.endsWith(".css")
   ) {
     return NextResponse.next();
